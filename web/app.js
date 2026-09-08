@@ -80,13 +80,19 @@ function visibleRows() {
 }
 
 // Returns a sorted copy of the given rows by the active column, or in original collection order when no column is selected.
+// Artist sorts use title as the tie-breaker and title sorts use artist, always in the same direction.
 function sortRows(list) {
   if (!sort.key) return [...list];
+  const tieKey = sort.key === "artist" ? "title" : sort.key === "title" ? "artist" : null;
+  const cmp = (a, b, k) => {
+    if (a[k] == null && b[k] == null) return 0;
+    if (a[k] == null) return 1;
+    if (b[k] == null) return -1;
+    return String(a[k]).localeCompare(String(b[k]));
+  };
   return [...list].sort((a, b) => {
-    if (a[sort.key] == null && b[sort.key] == null) return 0;
-    if (a[sort.key] == null) return 1;
-    if (b[sort.key] == null) return -1;
-    return String(a[sort.key]).localeCompare(String(b[sort.key])) * sort.dir;
+    const primary = cmp(a, b, sort.key) * sort.dir;
+    return primary !== 0 ? primary : cmp(a, b, tieKey) * sort.dir;
   });
 }
 

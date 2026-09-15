@@ -213,7 +213,7 @@ function closeModal() {
 function applyTheme() {
   const light = localStorage.getItem("discos-theme") === "light";
   document.documentElement.classList.toggle("light", light);
-  $("#themeToggle").textContent = light ? "Switch to dark" : "Switch to light";
+  // $("#themeToggle").textContent = light ? "Switch to dark" : "Switch to light";
 }
 
 // Resets sorting to the default collection order when the # column header is clicked.
@@ -270,12 +270,12 @@ document.querySelectorAll("th[data-key]").forEach((th) => {
 // Clicking the # header returns to the default collection order.
 $("#thReset").addEventListener("click", resetSort);
 
-// Theme toggle: switches between light and dark (default) and remembers the choice for next visits.
-$("#themeToggle").addEventListener("click", () => {
-  const light = document.documentElement.classList.toggle("light");
-  localStorage.setItem("discos-theme", light ? "light" : "dark");
-  $("#themeToggle").textContent = light ? "Switch to dark" : "Switch to light";
-});
+// // Theme toggle: switches between light and dark (default) and remembers the choice for next visits.
+// $("#themeToggle").addEventListener("click", () => {
+//   const light = document.documentElement.classList.toggle("light");
+//   localStorage.setItem("discos-theme", light ? "light" : "dark");
+//   $("#themeToggle").textContent = light ? "Switch to dark" : "Switch to light";
+// });
 
 // Clicking the dark backdrop closes the modal.
 $("#modalBg").addEventListener("click", (ev) => {
